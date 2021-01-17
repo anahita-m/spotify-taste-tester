@@ -1,0 +1,79 @@
+/* #logged-in {
+    background-color:#F3FF9A;
+    height: 800px;
+    width: 100%;
+    overflow-y: scroll;
+} */
+
+#intro {
+    /* height: 100%; */
+    max-width: 85%;
+    background-color:#F3FF9A;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#first-name {
+    color:#312E50;
+    -webkit-text-stroke-width: 1.6px; 
+    -webkit-text-stroke-color: #312E50;
+    font-family: 'Archivo', sans-serif;
+    font-size: 60px;
+    font-style: bold;
+    text-align: left;
+    font-weight: 600;
+    padding-bottom: 10%;
+    /* margin-left: 40px;
+    margin-top: 60px; */
+    /* blink-caret .75s step-end infinite; */ 
+}
+
+
+#overlap-intro-msg {
+    color:#312E50;
+    -webkit-text-stroke-width: 1.4px; 
+    -webkit-text-stroke-color: #312E50;
+    font-family: 'Archivo', sans-serif;
+    font-size: 30px;
+    font-style: bold;
+    text-align: left;
+    /* margin-top: 60px;
+    margin-left: 40px;
+    margin-right: 40px; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+  #pagepiling {
+    text-align: left;
+  }
+
+  #pp-nav li .active span,
+  .pp-slidesNav .active span {
+    background: rgb(255, 255, 255) !important; /*To change the active navigation bullets inner color*/
+  }
+  .sec1 {
+    background-color:#F3FF9A;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .sec2 {
+    background-color: #C7CAFF;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .sec3 {
+    background-color: #D0FFD4;
+    height: 100%;
+    width: 100%;
+  }
+  .sec4 {
+    background: url("https://images.pexels.com/photos/822474/pexels-photo-822474.jpeg?cs=srgb&dl=pexels-bianca-marolla-822474.jpg&fm=jpg");
+    background-size: cover;
+  }
