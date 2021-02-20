@@ -7,6 +7,7 @@ import Wave from './components/wave';
 import Loading from './components/loading.js';
 import LoggedIn from './components/loggedIn';
 import { getUserData } from './components/getUserData';
+import history from './history';
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
@@ -62,10 +63,6 @@ class App extends Component {
         enteredSite: enterSiteStatus
       })  
     }
-
-
-
-
     else if (darkModeStatus == false && this.state.loggedIn == true){
       this.setState({
         backgroundColor: "green",
@@ -114,6 +111,7 @@ class App extends Component {
     const dataLoaded = this.state.itemsLoaded
 
     if (!(Object.keys(this.state.userData).length === 0)) {
+      history.push('/');
       return(
         <div className="App" style={{background:this.state.backgroundColor, color:this.state.color}}>
           <LoggedIn onChangeParentStyle={this.onChangeStyle.bind(this)} {...this.state}></LoggedIn>

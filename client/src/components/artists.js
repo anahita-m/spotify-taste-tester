@@ -1,8 +1,8 @@
 import React, { useRef, Component} from 'react';
 import { Container, Row, Col, Fragment } from 'react-bootstrap';
-import './tracks.css'
+import './artists.css'
 
-export default class Tracks extends Component {
+export default class Artists extends Component {
     constructor(props) {
         super(props);
         this.playAudio = this.playAudio.bind(this)
@@ -18,15 +18,16 @@ export default class Tracks extends Component {
 
     render() {
         return (
-        <Container id="tracks" ref={this.props.ref1}>
+        <Container id="artists" ref={this.props.ref1}>
             <p id="overlap-tracks-msg">
-                <strong id="num-overlap" > { this.props.numTracksOverlap }  </strong>
-                { this.props.numTracksOverlap == 1 ? <p style={{display: 'inline'}}> shared song </p> : <p style={{display: 'inline'}}> shared songs </p>
+                <strong id="num-overlap" > { this.props.numArtistsOverlap }  </strong>
+                { this.props.numArtistsOverlap == 1 ? <p style={{display: 'inline'}}> shared artist </p> : <p style={{display: 'inline'}}> top artists </p>
                 }
-            <br></br> We found {this.props.numTracksOverlap} of your saved songs on Frank Ocean's playlists.
+            <br></br> We found {this.props.numArtistsOverlap} of your top artists on Blonded with { this.props.recommendedTracksByArtistUris.length }
+             {this.props.recommendedTracksByArtistUris == 1 ? <p style={{display: 'inline'}}> song </p> : <p style={{display: 'inline'}}> songs </p> } featured that you don't have saved.
             </p>
                 <Container className="scrolling-wrapper">
-                        {this.props.overlapTracks.map(p => (
+                        {this.props.uniqueRecommendedTracksByArtistUris.map(p => (
                             <div className="one-track">
                             <img id="track-artwork" key={p.id} src={p.artwork} alt="can't show image" />
                             <div className="text-wrapper">

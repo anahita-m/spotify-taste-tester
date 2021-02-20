@@ -1,19 +1,11 @@
 import React, { useRef, Component } from 'react';
-import './popularity.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { blondedPopularity } from './getUserData';
 import blonded_track_id_map from './track_id_name_map.json';
+import './popularity.css'
 
 var i,j=0;
-var popularity_msgs = [
-    "we didn't find any shared songs :(",
-    "u made the cut ur OK",
-    "not bad kid.",
-    "WOW! cool man, you like a lot of music!",
-    "wait what? Frank - is that you?",
-    "you and frank were switched at birth, probably. or you should just get outside more."
-]
 
 export default class Popularity extends Component {
 
@@ -23,7 +15,8 @@ export default class Popularity extends Component {
         this.state = {
             popularity: 0,
             popularTracks: [],
-            popularityMsg: ""
+            popularityMsg: "",
+            popularity_percentage: 0
         };
     }
 
@@ -44,33 +37,51 @@ async calculateUserPopularity(blonded_track_id_map, track_overlap) {
     popularity_set.push(user_avg);
     popularity_set.sort();
     var length_prior = popularity_set.length;
-    var user_stat = 1 - popularity_set.slice(popularity_set.indexOf(user_avg) + 1, popularity_set.length + 1).length/length_prior;
+    var user_stat = popularity_set.slice(popularity_set.indexOf(user_avg) + 1, popularity_set.length + 1).length/length_prior;
     for (i in track_overlap) {
        if (blonded_track_id_map[track_overlap[i]].popularity === user_min) {
            minimum_popularity_tracks.push(blonded_track_id_map[track_overlap[i]]);
        }
     }
-    this.setState({popularity: user_stat,
-        popularTracks: minimum_popularity_tracks});
-    console.log("USER NICHENESS:", user_stat);
-    console.log("MINIMUM POP LIST:", minimum_popularity_tracks);
+
+    var percentage = (user_stat * 100).toFixed(0);
+    this.setState({popularity: user_stat, popularity_percentage: percentage,
+        popularTracks:minimum_popularity_tracks.slice(0, 3)});
 
 }
 
 componentDidMount() {
-    this.calculateUserPopularity(blonded_track_id_map, this.props.overlapTracksIds);
+    this.calculateUserPopularity(blonded_track_id_map, [...this.props.topTrackUris, ...this.props.overlapTrackUris]);
 
 }
 
 render() {
     return(
         <div>
-            <Container id="tracks">
-                <Row>
-                    <Col fluid id="niche-tracks"> 
-                    </Col>
-                </Row>
-            </Container>
+
+<Container id="tracks-niche" ref={this.props.ref1}>
+            <p id="overlap-tracks-msg" >
+            <strong id="num-overlap" > { this.state.popularity_percentage }%</strong>
+              niche. <br></br> Your shared songs are more niche than { this.state.popularity_percentage }% of Frank's favorites. 
+              {
+                  this.state.popularTracks.length > 1 ? <p style={{display:"inline"}}> Here's your best finds </p> 
+                  : this.state.popularTracks.length === 1 ? <p style={{display:"inline"}}> Here's your best find </p> 
+                  : <p> </p> 
+              }
+              </p>
+            <Container className="scrolling-wrapper">
+                        {this.state.popularTracks.map(p => (
+                            <div className="one-track">
+                            <img id="track-artwork" key={p.id} src={p.artwork} alt="can't show image" />
+                            <div className="text-wrapper">
+                                <span id="track-name" key={p.id}> {p.name} <br></br>
+                                    <span id="track-artist" key={p.id}> {p.artist} </span>
+                                </span>
+                            </div>
+                            </div>
+                        ))}
+                </Container> 
+        </Container>
         </div>
     )
 }
